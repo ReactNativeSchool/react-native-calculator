@@ -19,6 +19,7 @@ export default class App extends React.Component {
           return { currentValue: value.toString() };
         }
 
+        // Is this right?
         if (previousValue === null && operator !== null) {
           return {
             currentValue: value.toString(),
@@ -49,7 +50,9 @@ export default class App extends React.Component {
 
       if (type === "operator") {
         return {
-          operator: value
+          operator: value,
+          previousValue: currentValue,
+          currentValue: "0"
         };
       }
 
