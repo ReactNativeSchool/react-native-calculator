@@ -20,6 +20,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: buttonWidth
   },
+  buttonDouble: {
+    // Width / 2 - 2 for margin
+    width: width / 2 - 2,
+    flex: 0,
+    alignItems: "flex-start",
+    paddingLeft: 40 // just approximating
+  },
   orange: {
     backgroundColor: "#FA7900"
   },
@@ -40,11 +47,7 @@ export default ({ onPress = () => alert("todo!"), text, theme, size }) => {
   }
 
   if (size === "double") {
-    // Width / 2 - 2 for margin
-    buttonStyles.push({
-      width: width / 2 - 2,
-      flex: 0
-    });
+    buttonStyles.push(styles.buttonDouble);
   }
 
   return (
