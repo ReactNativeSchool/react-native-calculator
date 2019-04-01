@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, StatusBar, SafeAreaView } from "react-native";
 import Button from "./components/Button";
 import Row from "./components/Row";
+import calculator from "./util/calculator";
 
 const styles = StyleSheet.create({
   container: {
@@ -26,96 +27,7 @@ export default class App extends React.Component {
   };
 
   handleButtonClick = (type, value) => {
-    this.setState(state => {
-      const { currentValue, previousValue, operator } = state;
-
-      if (type === "number") {
-        if (currentValue === "0") {
-          return { currentValue: value.toString() };
-        }
-
-        // Is this right?
-        if (previousValue === null && operator !== null) {
-          return {
-            currentValue: value.toString(),
-            previousValue: currentValue
-          };
-        }
-
-        return {
-          currentValue: `${currentValue}${value}`
-        };
-      }
-
-      if (type === "clear") {
-        return { currentValue: "0", previousValue: null, operator: null };
-      }
-
-      if (type === "posneg") {
-        return {
-          currentValue: (parseFloat(currentValue) * -1).toString()
-        };
-      }
-
-      if (type === "percentage") {
-        return {
-          currentValue: (parseFloat(currentValue) * 0.01).toString()
-        };
-      }
-
-      if (type === "operator") {
-        return {
-          operator: value,
-          previousValue: currentValue,
-          currentValue: "0"
-        };
-      }
-
-      if (type === "equal") {
-        if (operator === null || previousValue === null) {
-          return state;
-        }
-
-        const current = parseFloat(currentValue);
-        const previous = parseFloat(previousValue);
-        const resetState = {
-          previousValue: null,
-          operator: null
-        };
-
-        if (operator === "/") {
-          return {
-            currentValue: previous / current,
-            ...resetState
-          };
-        }
-
-        if (operator === "+") {
-          return {
-            currentValue: previous + current,
-            ...resetState
-          };
-        }
-
-        if (operator === "-") {
-          return {
-            currentValue: previous - current,
-            ...resetState
-          };
-        }
-
-        if (operator === "*") {
-          return {
-            currentValue: previous * current,
-            ...resetState
-          };
-        }
-
-        return state;
-      }
-
-      return state;
-    });
+    this.setState(state => calculator({ type, value }, state));
   };
 
   render() {
