@@ -3,11 +3,26 @@ import { StyleSheet, Text, View, StatusBar, SafeAreaView } from "react-native";
 import Button from "./components/Button";
 import Row from "./components/Row";
 
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#202020",
+    flex: 1,
+    justifyContent: "flex-end"
+  },
+  value: {
+    color: "#fff",
+    textAlign: "right",
+    fontSize: 40,
+    marginBottom: 10,
+    marginRight: 20
+  }
+});
+
 export default class App extends React.Component {
   state = {
-    previousValue: null,
     currentValue: "0",
-    operator: null
+    previousValue: null, // eslint-disable-line
+    operator: null // eslint-disable-line
   };
 
   handleButtonClick = (type, value) => {
@@ -98,6 +113,8 @@ export default class App extends React.Component {
 
         return state;
       }
+
+      return state;
     });
   };
 
@@ -211,18 +228,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#202020",
-    flex: 1,
-    justifyContent: "flex-end"
-  },
-  value: {
-    color: "#fff",
-    textAlign: "right",
-    fontSize: 40,
-    marginBottom: 10,
-    marginRight: 20
-  }
-});
