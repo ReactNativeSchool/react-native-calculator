@@ -129,17 +129,17 @@ export default class App extends React.Component {
           <Row>
             <Button
               text="C"
-              theme="dark"
+              theme="secondary"
               onPress={() => this.handleButtonClick("clear")}
             />
             <Button
               text="+/-"
-              theme="dark"
+              theme="secondary"
               onPress={() => this.handleButtonClick("posneg")}
             />
             <Button
               text="%"
-              theme="dark"
+              theme="secondary"
               onPress={() => this.handleButtonClick("percentage")}
             />
             <Button

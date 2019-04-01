@@ -6,32 +6,32 @@ const buttonWidth = width / 4;
 
 const styles = StyleSheet.create({
   text: {
-    color: "#020205",
+    color: "#fff",
     fontSize: 25
   },
-  textWhite: {
-    color: "#fff"
+  textDark: {
+    color: "#060606"
   },
   button: {
-    backgroundColor: "#CFD0D4",
+    backgroundColor: "#333333",
     flex: 1,
-    margin: 1,
+    margin: 5,
     justifyContent: "center",
     alignItems: "center",
-    height: buttonWidth
+    height: Math.floor(buttonWidth - 10), // buttonWidth (approx) - (margin * 2)
+    borderRadius: Math.floor(buttonWidth) // use Math.floor to avoid splitting in button on iOS
   },
   buttonDouble: {
-    // Width / 2 - 2 for margin
-    width: width / 2 - 2,
+    width: width / 2 - 10,
     flex: 0,
     alignItems: "flex-start",
     paddingLeft: 40 // just approximating
   },
   orange: {
-    backgroundColor: "#FA7900"
+    backgroundColor: "#f09a36"
   },
-  dark: {
-    backgroundColor: "#C5C6C8"
+  secondary: {
+    backgroundColor: "#a6a6a6"
   }
 });
 
@@ -41,9 +41,9 @@ export default ({ onPress = () => alert("todo!"), text, theme, size }) => {
 
   if (theme === "orange") {
     buttonStyles.push(styles.orange);
-    textStyles.push(styles.textWhite);
-  } else if (theme === "dark") {
-    buttonStyles.push(styles.dark);
+  } else if (theme === "secondary") {
+    buttonStyles.push(styles.secondary);
+    textStyles.push(styles.textDark);
   }
 
   if (size === "double") {
