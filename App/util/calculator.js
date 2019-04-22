@@ -1,40 +1,39 @@
-export const handleNumber = (
-  value,
-  { currentValue, previousValue, operator }
-) => {
-  if (currentValue === "0") {
-    return { currentValue: value.toString() };
-  }
+export const initialState = {
+  currentValue: "0",
+  operator: null,
+  previousValue: null
+};
 
-  // Is this right?
-  if (previousValue === null && operator !== null) {
-    return {
-      currentValue: value.toString(),
-      previousValue: currentValue
-    };
+export const handleNumber = (value, state) => {
+  if (state.currentValue === "0") {
+    return { currentValue: `${value}` };
   }
 
   return {
-    currentValue: `${currentValue}${value}`
+    currentValue: `${state.currentValue}${value}`
   };
 };
 
-export const handleEqual = (value, state) => {
+export const handleEqual = state => {
   const { currentValue, previousValue, operator } = state;
-  if (operator === null || previousValue === null) {
-    return state;
-  }
 
   const current = parseFloat(currentValue);
   const previous = parseFloat(previousValue);
   const resetState = {
-    previousValue: null,
-    operator: null
+    operator: null,
+    previousValue: null
   };
 
   if (operator === "/") {
     return {
       currentValue: previous / current,
+      ...resetState
+    };
+  }
+
+  if (operator === "*") {
+    return {
+      currentValue: previous * current,
       ...resetState
     };
   }
@@ -53,38 +52,31 @@ export const handleEqual = (value, state) => {
     };
   }
 
-  if (operator === "*") {
-    return {
-      currentValue: previous * current,
-      ...resetState
-    };
-  }
-
   return state;
 };
 
-const calculator = (action, state) => {
-  switch (action.type) {
+const calculator = (type, value, state) => {
+  switch (type) {
     case "number":
-      return handleNumber(action.value, state);
-    case "clear":
-      return { currentValue: "0", previousValue: null, operator: null };
-    case "posneg":
-      return {
-        currentValue: (parseFloat(state.currentValue) * -1).toString()
-      };
-    case "percentage":
-      return {
-        currentValue: (parseFloat(state.currentValue) * 0.01).toString()
-      };
+      return handleNumber(value, state);
     case "operator":
       return {
-        operator: action.value,
+        operator: value,
         previousValue: state.currentValue,
         currentValue: "0"
       };
     case "equal":
-      return handleEqual(action.value, state);
+      return handleEqual(state);
+    case "clear":
+      return initialState;
+    case "posneg":
+      return {
+        currentValue: `${parseFloat(state.currentValue) * -1}`
+      };
+    case "percentage":
+      return {
+        currentValue: `${parseFloat(state.currentValue) * 0.01}`
+      };
     default:
       return state;
   }

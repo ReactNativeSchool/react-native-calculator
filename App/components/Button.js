@@ -1,61 +1,57 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet, Text, Dimensions } from "react-native";
 
-const { width } = Dimensions.get("window");
-const buttonWidth = width / 4;
+const screen = Dimensions.get("window");
+const buttonWidth = screen.width / 4;
 
 const styles = StyleSheet.create({
   text: {
     color: "#fff",
     fontSize: 25
   },
-  textDark: {
+  textSecondary: {
     color: "#060606"
   },
   button: {
     backgroundColor: "#333333",
     flex: 1,
-    margin: 5,
-    justifyContent: "center",
+    height: Math.floor(buttonWidth - 10),
     alignItems: "center",
-    height: Math.floor(buttonWidth - 10), // buttonWidth (approx) - (margin * 2)
-    borderRadius: Math.floor(buttonWidth) // use Math.floor to avoid splitting in button on iOS
+    justifyContent: "center",
+    borderRadius: Math.floor(buttonWidth),
+    margin: 5
   },
   buttonDouble: {
-    width: width / 2 - 10,
+    width: screen.width / 2 - 10,
     flex: 0,
     alignItems: "flex-start",
-    paddingLeft: 40 // just approximating
+    paddingLeft: 40
   },
-  orange: {
-    backgroundColor: "#f09a36"
-  },
-  secondary: {
+  buttonSecondary: {
     backgroundColor: "#a6a6a6"
+  },
+  buttonAccent: {
+    backgroundColor: "#f09a36"
   }
 });
 
-export default ({ onPress = () => alert("todo!"), text, theme, size }) => {
+export default ({ onPress, text, size, theme }) => {
   const buttonStyles = [styles.button];
   const textStyles = [styles.text];
-
-  if (theme === "orange") {
-    buttonStyles.push(styles.orange);
-  } else if (theme === "secondary") {
-    buttonStyles.push(styles.secondary);
-    textStyles.push(styles.textDark);
-  }
 
   if (size === "double") {
     buttonStyles.push(styles.buttonDouble);
   }
 
+  if (theme === "secondary") {
+    buttonStyles.push(styles.buttonSecondary);
+    textStyles.push(styles.textSecondary);
+  } else if (theme === "accent") {
+    buttonStyles.push(styles.buttonAccent);
+  }
+
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={buttonStyles}
-      activeOpacity={0.9}
-    >
+    <TouchableOpacity onPress={onPress} style={buttonStyles}>
       <Text style={textStyles}>{text}</Text>
     </TouchableOpacity>
   );
