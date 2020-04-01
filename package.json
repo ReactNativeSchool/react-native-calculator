@@ -8,14 +8,14 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "expo": "^36.0.0",
+    "expo": "^37.0.0",
     "react": "16.9.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.1.tar.gz"
+    "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.0.tar.gz"
   },
   "devDependencies": {
-    "babel-preset-expo": "^8.0.0",
+    "babel-preset-expo": "^8.1.0",
     "eslint": "^6.8.0",
-    "eslint-config-handlebarlabs": "^0.0.4",
+    "eslint-config-handlebarlabs": "^0.0.5",
     "prettier": "^1.19.1"
   },
   "private": true
