@@ -50,28 +50,28 @@ export default () => {
         </Row>
 
         <Row>
-          <Button text="7" onPress={() => pressNumber(7)} />
-          <Button text="8" onPress={() => pressNumber(8)} />
-          <Button text="9" onPress={() => pressNumber(9)} />
+          <Button text="7" onPress={() => pressNumber("7")} />
+          <Button text="8" onPress={() => pressNumber("8")} />
+          <Button text="9" onPress={() => pressNumber("9")} />
           <Button text="x" theme="accent" onPress={() => pressOperator("*")} />
         </Row>
 
         <Row>
-          <Button text="4" onPress={() => pressNumber(4)} />
-          <Button text="5" onPress={() => pressNumber(5)} />
-          <Button text="6" onPress={() => pressNumber(6)} />
+          <Button text="4" onPress={() => pressNumber("4")} />
+          <Button text="5" onPress={() => pressNumber("5")} />
+          <Button text="6" onPress={() => pressNumber("6")} />
           <Button text="-" theme="accent" onPress={() => pressOperator("-")} />
         </Row>
 
         <Row>
-          <Button text="1" onPress={() => pressNumber(1)} />
-          <Button text="2" onPress={() => pressNumber(2)} />
-          <Button text="3" onPress={() => pressNumber(3)} />
+          <Button text="1" onPress={() => pressNumber("1")} />
+          <Button text="2" onPress={() => pressNumber("2")} />
+          <Button text="3" onPress={() => pressNumber("3")} />
           <Button text="+" theme="accent" onPress={() => pressOperator("+")} />
         </Row>
 
         <Row>
-          <Button text="0" size="double" onPress={() => pressNumber(0)} />
+          <Button text="0" size="double" onPress={() => pressNumber("0")} />
           <Button text="." onPress={() => pressNumber(".")} />
           <Button text="=" theme="accent" onPress={() => pressEqual()} />
         </Row>

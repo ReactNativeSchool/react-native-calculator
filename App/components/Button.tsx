@@ -35,9 +35,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Button = ({ onPress, text, size, theme }) => {
-  const buttonStyles = [styles.button];
-  const textStyles = [styles.text];
+type ButtonProps = {
+  text: string;
+  size?: "double";
+  theme?: "secondary" | "accent";
+  onPress: () => void;
+};
+
+export const Button = ({ onPress, text, size, theme }: ButtonProps) => {
+  const buttonStyles: [any] = [styles.button];
+  const textStyles: [any] = [styles.text];
 
   if (size === "double") {
     buttonStyles.push(styles.buttonDouble);

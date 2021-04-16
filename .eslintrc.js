@@ -1,3 +1,7 @@
 module.exports = {
-  extends: "handlebarlabs"
+  extends: "handlebarlabs",
+  rules: {
+    "react/require-default-props": 0,
+    "import/extensions": 0,
+  },
 };

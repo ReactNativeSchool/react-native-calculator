@@ -1,12 +1,33 @@
 import React from "react";
 
+type StateType = {
+  currentValue: string;
+  operator: string | null;
+  previousValue: string;
+};
+
+enum ActionTypes {
+  Number = "number",
+  Operator = "operator",
+  Clear = "clear",
+  Posneg = "posneg",
+  Percentage = "percentage",
+  Equal = "equal",
+}
+
+type Action = {
+  type: ActionTypes;
+  value?: string;
+  operator?: string;
+};
+
 const initialState = {
   currentValue: "0",
   operator: null,
-  previousValue: null,
+  previousValue: "0",
 };
 
-const handleEqual = (state) => {
+const handleEqual = (state: StateType) => {
   const { currentValue, previousValue, operator } = state;
 
   const current = parseFloat(currentValue);
@@ -15,37 +36,37 @@ const handleEqual = (state) => {
   if (operator === "/") {
     return {
       ...initialState,
-      currentValue: previous / current,
+      currentValue: `${previous / current}`,
     };
   }
 
   if (operator === "*") {
     return {
       ...initialState,
-      currentValue: previous * current,
+      currentValue: `${previous * current}`,
     };
   }
 
   if (operator === "+") {
     return {
       ...initialState,
-      currentValue: previous + current,
+      currentValue: `${previous + current}`,
     };
   }
 
   if (operator === "-") {
     return {
       ...initialState,
-      currentValue: previous - current,
+      currentValue: `${previous - current}`,
     };
   }
 
   return state;
 };
 
-const reducer = (state, action) => {
+const reducer = (state: StateType, action: Action): StateType => {
   switch (action.type) {
-    case "number": {
+    case ActionTypes.Number: {
       const currentValue =
         state.currentValue === "0"
           ? `${action.value}`
@@ -56,26 +77,27 @@ const reducer = (state, action) => {
         currentValue,
       };
     }
-    case "operator":
+    case ActionTypes.Operator: {
       return {
         ...state,
-        operator: action.value,
+        operator: action.operator || initialState.operator,
         previousValue: state.currentValue,
         currentValue: "0",
       };
-    case "clear":
+    }
+    case ActionTypes.Clear:
       return initialState;
-    case "posneg":
+    case ActionTypes.Posneg:
       return {
         ...state,
         currentValue: `${parseFloat(state.currentValue) * -1}`,
       };
-    case "percentage":
+    case ActionTypes.Percentage:
       return {
         ...state,
         currentValue: `${parseFloat(state.currentValue) * 0.01}`,
       };
-    case "equal":
+    case ActionTypes.Equal:
       return handleEqual(state);
     default:
       return state;
@@ -85,12 +107,14 @@ const reducer = (state, action) => {
 export const useCalculator = () => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
-  const pressNumber = (value) => dispatch({ type: "number", value });
-  const pressOperator = (value) => dispatch({ type: "operator", value });
-  const pressClear = () => dispatch({ type: "clear" });
-  const pressPosNeg = () => dispatch({ type: "posneg" });
-  const pressPercentage = () => dispatch({ type: "percentage" });
-  const pressEqual = () => dispatch({ type: "equal" });
+  const pressNumber = (value: string) =>
+    dispatch({ type: ActionTypes.Number, value });
+  const pressOperator = (operator: string) =>
+    dispatch({ type: ActionTypes.Operator, operator });
+  const pressClear = () => dispatch({ type: ActionTypes.Clear });
+  const pressPosNeg = () => dispatch({ type: ActionTypes.Posneg });
+  const pressPercentage = () => dispatch({ type: ActionTypes.Percentage });
+  const pressEqual = () => dispatch({ type: ActionTypes.Equal });
 
   return {
     pressNumber,
