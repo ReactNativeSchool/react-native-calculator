@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, StatusBar, SafeAreaView } from "react-native";
 
 import { Row } from "./components/Row";
 import { Button } from "./components/Button";
-import calculator, { initialState } from "./util/calculator";
+import { useCalculator } from "./util/calculator";
 
 const styles = StyleSheet.create({
   container: {
@@ -21,11 +21,15 @@ const styles = StyleSheet.create({
 });
 
 export default () => {
-  const [{ currentValue }, setState] = React.useState(initialState);
-
-  const handleTap = (type, value) => {
-    setState((state) => calculator(type, value, state));
-  };
+  const {
+    currentValue,
+    pressNumber,
+    pressOperator,
+    pressClear,
+    pressPosNeg,
+    pressPercentage,
+    pressEqual,
+  } = useCalculator();
 
   return (
     <View style={styles.container}>
@@ -35,69 +39,41 @@ export default () => {
           {parseFloat(currentValue).toLocaleString()}
         </Text>
         <Row>
-          <Button
-            text="C"
-            theme="secondary"
-            onPress={() => handleTap("clear")}
-          />
-          <Button
-            text="+/-"
-            theme="secondary"
-            onPress={() => handleTap("posneg")}
-          />
+          <Button text="C" theme="secondary" onPress={() => pressClear()} />
+          <Button text="+/-" theme="secondary" onPress={() => pressPosNeg()} />
           <Button
             text="%"
             theme="secondary"
-            onPress={() => handleTap("percentage")}
+            onPress={() => pressPercentage()}
           />
-          <Button
-            text="/"
-            theme="accent"
-            onPress={() => handleTap("operator", "/")}
-          />
+          <Button text="/" theme="accent" onPress={() => pressOperator("/")} />
         </Row>
 
         <Row>
-          <Button text="7" onPress={() => handleTap("number", 7)} />
-          <Button text="8" onPress={() => handleTap("number", 8)} />
-          <Button text="9" onPress={() => handleTap("number", 9)} />
-          <Button
-            text="x"
-            theme="accent"
-            onPress={() => handleTap("operator", "*")}
-          />
+          <Button text="7" onPress={() => pressNumber(7)} />
+          <Button text="8" onPress={() => pressNumber(8)} />
+          <Button text="9" onPress={() => pressNumber(9)} />
+          <Button text="x" theme="accent" onPress={() => pressOperator("*")} />
         </Row>
 
         <Row>
-          <Button text="4" onPress={() => handleTap("number", 4)} />
-          <Button text="5" onPress={() => handleTap("number", 5)} />
-          <Button text="6" onPress={() => handleTap("number", 6)} />
-          <Button
-            text="-"
-            theme="accent"
-            onPress={() => handleTap("operator", "-")}
-          />
+          <Button text="4" onPress={() => pressNumber(4)} />
+          <Button text="5" onPress={() => pressNumber(5)} />
+          <Button text="6" onPress={() => pressNumber(6)} />
+          <Button text="-" theme="accent" onPress={() => pressOperator("-")} />
         </Row>
 
         <Row>
-          <Button text="1" onPress={() => handleTap("number", 1)} />
-          <Button text="2" onPress={() => handleTap("number", 2)} />
-          <Button text="3" onPress={() => handleTap("number", 3)} />
-          <Button
-            text="+"
-            theme="accent"
-            onPress={() => handleTap("operator", "+")}
-          />
+          <Button text="1" onPress={() => pressNumber(1)} />
+          <Button text="2" onPress={() => pressNumber(2)} />
+          <Button text="3" onPress={() => pressNumber(3)} />
+          <Button text="+" theme="accent" onPress={() => pressOperator("+")} />
         </Row>
 
         <Row>
-          <Button
-            text="0"
-            size="double"
-            onPress={() => handleTap("number", 0)}
-          />
-          <Button text="." onPress={() => handleTap("number", ".")} />
-          <Button text="=" theme="accent" onPress={() => handleTap("equal")} />
+          <Button text="0" size="double" onPress={() => pressNumber(0)} />
+          <Button text="." onPress={() => pressNumber(".")} />
+          <Button text="=" theme="accent" onPress={() => pressEqual()} />
         </Row>
       </SafeAreaView>
     </View>
