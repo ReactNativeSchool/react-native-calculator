@@ -7,10 +7,10 @@ const buttonWidth = screen.width / 4;
 const styles = StyleSheet.create({
   text: {
     color: "#fff",
-    fontSize: 25
+    fontSize: 25,
   },
   textSecondary: {
-    color: "#060606"
+    color: "#060606",
   },
   button: {
     backgroundColor: "#333333",
@@ -19,23 +19,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: Math.floor(buttonWidth),
-    margin: 5
+    margin: 5,
   },
   buttonDouble: {
     width: screen.width / 2 - 10,
     flex: 0,
     alignItems: "flex-start",
-    paddingLeft: 40
+    paddingLeft: 40,
   },
   buttonSecondary: {
-    backgroundColor: "#a6a6a6"
+    backgroundColor: "#a6a6a6",
   },
   buttonAccent: {
-    backgroundColor: "#f09a36"
-  }
+    backgroundColor: "#f09a36",
+  },
 });
 
-export default ({ onPress, text, size, theme }) => {
+export const Button = ({ onPress, text, size, theme }) => {
   const buttonStyles = [styles.button];
   const textStyles = [styles.text];
 

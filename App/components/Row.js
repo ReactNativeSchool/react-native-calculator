@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
 
-export default ({ children }) => (
+export const Row = ({ children }) => (
   <View style={{ flexDirection: "row" }}>{children}</View>
 );
